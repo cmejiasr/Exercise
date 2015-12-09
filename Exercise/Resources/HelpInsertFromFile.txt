@@ -1,0 +1,18 @@
+﻿============================================================================
+							Shapes exercise - Help
+============================================================================
+
+How to insert a shape from file?
+
+- Provide a file that follows the guidelines to create a shape.
+- Each shape should in a separate line
+- File extension should be .txt
+i.e:
+
+Valid file content:
+
+circle 1.7 ­5.05 6.9
+square 3.55 4.1 2.77
+rectangle 3.5 2.0 5.6 7.2
+triangle 4.5 1 ­2.5 ­33 23 0.3
+donut 4.5 7.8 1.5 1.8

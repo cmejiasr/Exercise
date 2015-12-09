@@ -1,0 +1,56 @@
+﻿
+
+============================================================================
+			Shapes exercise - Help
+Press enter to return to the menu
+============================================================================
+
+How to insert a shape?
+
+Use the following patterns to create a new shape. All the values should be separated by 1 space
+
+Create a circle with the specified coordinates for the center and radius
+circle [centerX] [centerY] [radius]
+i.e: circle 1.7 ­5.05 6.9
+
+Create a square with the specified coordinates for a corner followed by a one length side
+square [x] [y] [length side]
+i.e: square 3.55 4.1 2.77
+
+Create a rectangle with the specified coordinates for a corner followed by the two sides.
+rectangle [x] [y] [length side 1] [lenth side 2]
+i.e: rectangle 3.5 2.0 5.6 7.2
+
+Create a triangle with three specified vertices
+triangle [x1] [y1] [x2] [y2] [x3] [y3]
+triangle 4.5 1 ­2.5 ­33 23 0.3
+
+Create a donut with the specified center, innerRadius and outerRadius
+donut [centerX] [centerY] [innerRadius] [outerRadius]
+donut 4.5 7.8 1.5 1.8
+
+*****************************************************************************
+How to insert a shape from file?
+
+- Provide a file that follows the guidelines to create a shape.
+- Each shape should in a separate line
+- File extension should be .txt
+i.e:
+
+Valid file content:
+
+circle 1.7 ­5.05 6.9
+square 3.55 4.1 2.77
+rectangle 3.5 2.0 5.6 7.2
+triangle 4.5 1 ­2.5 ­33 23 0.3
+donut 4.5 7.8 1.5 1.8
+
+*****************************************************************************
+Search Shape with (X, Y) coordinate
+
+Enter a X, Y value separated by 1 space to get all the shapes that include that point in the (x, y) space
+ie.: 1.7 5.05
+
+Press enter to return to the menu
+
+

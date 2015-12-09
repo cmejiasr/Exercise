@@ -1,0 +1,14 @@
+﻿============================================================================
+		Shapes exercise
+============================================================================
+
+Available Commands:
+1- Get Available Shapes Types 
+2- Insert Shape
+3- Insert Shape from file
+4- Search Shape with (X, Y) coordinate
+5- Help 
+6- Exit
+
+*Select the option number and then press enter
+
