@@ -27,61 +27,78 @@ namespace Exercise.Functions
 
         private static string ValidateParams(string[] paramsStrings, int numberOfParams)//NUmber of params + name of the shape
         {
-            var result = "";
+            try
+            {
+                var result = "";
 
-            if (paramsStrings.Length == numberOfParams)
-            {
-                for (var i = 1; i < numberOfParams; i++)
+                if (paramsStrings.Length == numberOfParams)
                 {
-                    if (IsDouble(paramsStrings[i])) continue;
-                    result = string.Format(
-                        "Problems inserting Shape {0}. Argument in position {1} is not a valid number",
-                        paramsStrings[0], i.ToString());
-                    break;
+                    for (var i = 1; i < numberOfParams; i++)
+                    {
+                        if (IsDouble(paramsStrings[i])) continue;
+                        result = string.Format(
+                            "Problems inserting Shape {0}. Argument in position {1} is not a valid number",
+                            paramsStrings[0], i.ToString());
+                        break;
+                    }
                 }
+                else if (paramsStrings.Length > numberOfParams)
+                {
+                    result = Constants.TooArgunments;
+                }
+                else
+                {
+                    result =
+                        "There is a problem with the arguments, Check Help to learn the valid shapes and its valid values";
+                }
+                return result;
             }
-            else if (paramsStrings.Length > numberOfParams)
+            catch (Exception)
             {
-                result = Constants.TooArgunments;
+                
+                return "";
             }
-            else
-            {
-                result =
-                    "There is a problem with the arguments, Check Help to learn the valid shapes and its valid values";
-            }
-            return result;
         }
 
         public string ValidateShape(string parameters)
         {
-            var paramList = parameters.Split(' ');
-            if (paramList.Length <= 3)
-                return Constants.FewArguments;
-            string operationResult;
-            var type = paramList[0].ToLower();
-            switch (type)
-            {
-                case Constants.Circle:
-                case Constants.Square:
-                    operationResult = ValidateParams(paramList, 4);
-                    break;
-                case Constants.Rectangle:
-                case Constants.Donut:
-                    operationResult = ValidateParams(paramList, 5);
-                    break;
 
-                case Constants.Triangle:
-                    operationResult = ValidateParams(paramList, 7);
-                    break;
-                default:
-                    operationResult = string.Format("{0} is not valid shape", paramList[0]);
-                    break;
-            }
-            if (operationResult == "")
+            try
             {
-                operationResult = InsertShape(paramList);
+                var paramList = parameters.Split(' ');
+                if (paramList.Length <= 3)
+                    return Constants.FewArguments;
+                string operationResult;
+                var type = paramList[0].ToLower();
+                switch (type)
+                {
+                    case Constants.Circle:
+                    case Constants.Square:
+                        operationResult = ValidateParams(paramList, 4);
+                        break;
+                    case Constants.Rectangle:
+                    case Constants.Donut:
+                        operationResult = ValidateParams(paramList, 5);
+                        break;
+
+                    case Constants.Triangle:
+                        operationResult = ValidateParams(paramList, 7);
+                        break;
+                    default:
+                        operationResult = string.Format("{0} is not valid shape", paramList[0]);
+                        break;
+                }
+                if (operationResult == "")
+                {
+                    operationResult = InsertShape(paramList);
+                }
+                return operationResult;
             }
-            return operationResult;
+            catch (Exception exception)
+            {
+
+                return string.Format("{0}{1}",Constants.GenericError, exception.Message);
+            }
         }
 
         public string InsertShape(string[] data)
@@ -209,7 +226,7 @@ namespace Exercise.Functions
             catch (Exception ex)
             {
 
-                return string.Format("The shape could be saved. Error message {0}", ex.Message);
+                return string.Format("The shape couldn't be saved. Error message {0}", ex.Message);
             }
         }
 
@@ -219,74 +236,88 @@ namespace Exercise.Functions
         public ShapeStorage ShapesList(string point)
         {
             var storage = new ShapeStorage();
-            
-            var splitPoint = point.Split(' ');
-            double x=0;
-            double y=0;
-            var validParameters = false;
-            if (splitPoint.Length > 2)
+            try
             {
-                storage.ErrorMessage += string.Format("{0}\n", Constants.TooArgunments);
-            }
-            else if (splitPoint.Length < 1)
-            {
-                storage.ErrorMessage += string.Format("{0}\n", Constants.FewArguments);
-            }
-            else
-            {
-                if (splitPoint[0] == "" || splitPoint[1] == "")
+                var splitPoint = point.Split(' ');
+                double x = 0;
+                double y = 0;
+                var validParameters = false;
+                if (splitPoint.Length > 2)
                 {
-                    storage.ErrorMessage += "Please check the arguments and try again\n";
+                    storage.ErrorMessage += string.Format("{0}\n", Constants.TooArgunments);
+                }
+                else if (splitPoint.Length < 1)
+                {
+                    storage.ErrorMessage += string.Format("{0}\n", Constants.FewArguments);
                 }
                 else
                 {
-                    if (!IsDouble(splitPoint[0]))
+                    if (splitPoint[0] == "" || splitPoint[1] == "")
                     {
-                        storage.ErrorMessage += string.Format("Argument '{0}' is not valid, Please check it and try again\n", splitPoint[0]);
-                    }
-                    if (!IsDouble(splitPoint[1]))
-                    {
-                        storage.ErrorMessage += string.Format("Argument '{0}' is not valid, Please check it and try again\n", splitPoint[1]);
+                        storage.ErrorMessage += "Please check the arguments and try again\n";
                     }
                     else
                     {
-                        x = double.Parse(splitPoint[0]);
-                        y = double.Parse(splitPoint[1]);
-                        validParameters = true;
+                        if (!IsDouble(splitPoint[0]))
+                        {
+                            storage.ErrorMessage +=
+                                string.Format("Argument '{0}' is not valid, Please check it and try again\n",
+                                    splitPoint[0]);
+                        }
+                        if (!IsDouble(splitPoint[1]))
+                        {
+                            storage.ErrorMessage +=
+                                string.Format("Argument '{0}' is not valid, Please check it and try again\n",
+                                    splitPoint[1]);
+                        }
+                        else
+                        {
+                            x = double.Parse(splitPoint[0]);
+                            y = double.Parse(splitPoint[1]);
+                            validParameters = true;
+                        }
+
+                    }
+                }
+
+                if (validParameters)
+                {
+
+                    storage.Shapes = new List<Shape>();
+                    var crcls = PointInCircle(x, y);
+                    var sqrs = PointInSquares(x, y);
+                    var trngls = PointInTriangles(x, y);
+                    var dnts = PointInDonuts(x, y);
+                    if (crcls != null)
+                    {
+                        storage.Shapes.AddRange(crcls);
                     }
 
-                }
-            }
+                    if (sqrs != null)
+                    {
+                        storage.Shapes.AddRange(sqrs);
+                    }
 
-            if (validParameters)
+                    if (trngls != null)
+                    {
+                        storage.Shapes.AddRange(trngls);
+                    }
+                    if (dnts != null)
+                    {
+                        storage.Shapes.AddRange(dnts);
+                    }
+                }
+
+
+            }
+            catch (Exception exception)
             {
 
-                storage.Shapes = new List<Shape>();
-                var crcls = PointInCircle(x, y);
-                var sqrs = PointInSquares(x, y);
-                var trngls = PointInTriangles(x, y);
-                var dnts = PointInDonuts(x, y);
-                if (crcls != null)
-                {
-                    storage.Shapes.AddRange(crcls); 
-                }
-                
-                if (sqrs != null)
-                {
-                    storage.Shapes.AddRange(sqrs);
-                }
-                
-                if (trngls != null)
-                {
-                    storage.Shapes.AddRange(trngls);
-                }
-                if (dnts != null)
-                {
-                    storage.Shapes.AddRange(dnts);
-                } 
+                storage.ErrorMessage = exception.Message;
             }
             
             return storage;
+            
         }
 
         public List<Circle> PointInCircle(double x, double y)
@@ -317,28 +348,11 @@ namespace Exercise.Functions
 
         internal List<Square> PointInSquares(double x, double y)
         {
-            var squareL = new List<Square>();
-
-            //if ((x1 <= x) && (x <= x1 + long_lado) && (y1 <= y) && (y1 <= y1 + long_lado))
-            //{
-            //    //justo encima de un borde 
-            //    if ((x == x1) || (x == x1 + long_lado) || (y == y1) || (y == y1 + long_lado))
-            //        cout << "El punto está sobre el cuadrado" << endl;
-            //    else
-            //        cout << "El punto está en el interior del cuadrado" << endl;
-            //}
-            //else
-            //    cout << "El punto está fuera del cuadrado" << endl;
-            //foreach (var square in Squares)
-            //{
-            //    if ((square.X1Xvalue <= x) && (x <= square.X1Xvalue + square.SideValue) && (square.Y1value <= y) &&
-            //        (y <= square.Y1value + square.SideValue))
-            //    {
-
-            //    }
-            //}
-            return squareL;
-
+            return _squares.Where(sqr => (sqr.X1Xvalue <= x)
+                && (x <= sqr.X1Xvalue + sqr.SideValue) 
+                && (sqr.Y1Value <= y) 
+                && (y <= sqr.Y1Value + sqr.SideValue))
+                .ToList();
         }
 
         List<Triangle> PointInTriangles(double x, double y)
@@ -357,24 +371,40 @@ namespace Exercise.Functions
                     select trn).ToList();
             }
             return null;
-            //var trianglesList =  new List<Triangle>();
-            //foreach (var trn in _triangles)
-            //{
-            //    var asX = x - trn.X1Xvalue;
-            //    var asY = y - trn.Y1Value;
-            //    var sAb = (trn.X2Value - trn.X1Xvalue) * asY - (trn.Y2Value - trn.Y1Value) * asX > 0;
-
-            //    if ((trn.X3Value - trn.X1Xvalue)*asY - (trn.Y3Value - trn.Y1Value)*asX > 0 != sAb) continue;
-            //    if ((trn.X1Xvalue - trn.X2Value) * (y - trn.Y2Value) - (trn.Y3Value - trn.Y2Value) * (x - trn.X2Value) > 0 != sAb) continue;
-
-            //    trianglesList.Add(trn);
-            //}
-            //return trianglesList;
         }
 
         #endregion
 
-
+        public string DeleteShape(string id)
+        {
+            try
+            {
+                var splitId = id.Split('-');
+                switch (splitId[0])
+                {
+                    case Constants.Circle:
+                        _circles.RemoveAll(x => x.Id == id);
+                        break;
+                    case Constants.Square:
+                        _squares.RemoveAll(x => x.Id == id);
+                        break;
+                    case Constants.Triangle:
+                        _triangles.RemoveAll(x => x.Id == id);
+                        break;
+                    case Constants.Rectangle:
+                        _rectangles.RemoveAll(x => x.Id == id);
+                        break;
+                    case Constants.Donut:
+                        _donuts.RemoveAll(x => x.Id == id);
+                        break;
+                }
+                return string.Format("Shape with ID:{0} was removed succesfully",id);
+            }
+            catch (Exception exception)
+            {
+                return string.Format("Error deleting the shape: {0}. Error message: {1}", id, exception.Message);
+            }
         }
     }
+}
 

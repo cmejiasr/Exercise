@@ -7,8 +7,9 @@ Available Commands:
 2- Insert Shape
 3- Insert Shape from file
 4- Search Shape with (X, Y) coordinate
-5- Help 
-6- Exit
+5- Delete Shape by Id
+6- Help 
+7- Exit
 
 *Select the option number and then press enter
 

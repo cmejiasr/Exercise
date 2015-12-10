@@ -28,7 +28,7 @@ namespace Exercise
             //Read Menu.txt to display the menu
             PrintFromFile("Resources\\Menu.txt");
             var menuSelection = Console.ReadLine();
-            if (menuSelection == "6" || menuSelection == "Exit" || menuSelection == "exit")
+            if (menuSelection == "7" || menuSelection == "Exit" || menuSelection == "exit")
             {
                 Environment.Exit(0);
             }
@@ -76,6 +76,9 @@ namespace Exercise
                     PrintMenu();
                     break;
                 case "5":
+                    Console.WriteLine("Enter a shape Id to delete it");
+                    break;
+                case "6":
                     PrintHelp();
                     break;
                 default:
@@ -147,6 +150,7 @@ namespace Exercise
         static void PrintShapeList(string point)
         {
             var storage = methods.ShapesList(point);
+            var area = 0.0;
             if (!string.IsNullOrEmpty(storage.ErrorMessage))
             {
                 Console.WriteLine(storage.ErrorMessage);
@@ -155,8 +159,11 @@ namespace Exercise
             {
                 foreach (var shape in storage.Shapes)
                 {
+                    area += shape.Area;
                     Console.WriteLine(string.Format("Shape: Id={0} Area={1}", shape.Id, shape.Area.ToString()));
                 }
+                Console.WriteLine(string.Format("Total area of all the shapes returned for a given point: {0}",
+                    area.ToString()));
             }
 
         }

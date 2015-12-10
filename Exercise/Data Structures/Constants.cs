@@ -19,6 +19,7 @@ namespace Exercise.Data_Structures
             "Error: Input string is not valid, too few arguments. Check Help option to learn more";
         public const string TooArgunments =
             "Error: Input string is not valid, too many arguments. Check Help option to learn more";
+        public const string GenericError = "Error procesing the shape. Error message:";
     }
 
 }
