@@ -8,11 +8,12 @@ namespace Exercise.Data_Structures.Shapes
 {
     public class Square:Shape
     {
+        public double SideValue { get; set; }
         public double Area
         {
             get
 	        {
-		        return Zvalue * 2; 
+		        return SideValue * 2; 
 	        }
         }
     }

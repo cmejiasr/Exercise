@@ -8,11 +8,12 @@ namespace Exercise.Data_Structures.Shapes
 {
     public class Circle : Shape
     {
-        public double Area
+        public double Radius { get; set; }
+        public override double Area
         {
             get 
             {
-                return (Constants.Pi * Zvalue * Zvalue); //this is the equation for the area of a circle
+                return (Constants.Pi * Radius * Radius); //this is the equation for the area of a circle
             }
         }
     }

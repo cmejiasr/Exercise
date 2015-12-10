@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using Exercise.Data_Structures;
 using Exercise.Data_Structures.Shapes;
 using Exercise.Functions;
 
@@ -41,13 +42,13 @@ namespace Exercise
                 case "1":
                     Console.Clear();
                     Console.WriteLine("Available Shapes:");
-                    Console.WriteLine("Circle");
-                    Console.WriteLine("Square");
-                    Console.WriteLine("Rectangle");
-                    Console.WriteLine("Triangle");
-                    Console.WriteLine("Donut");
+                    Console.WriteLine(Constants.Circle);
+                    Console.WriteLine(Constants.Square);
+                    Console.WriteLine(Constants.Rectangle);
+                    Console.WriteLine(Constants.Triangle);
+                    Console.WriteLine(Constants.Donut);
                     Console.WriteLine();
-                    Console.WriteLine("Enter to return to the menu...");
+                    Console.WriteLine(Constants.BackMenu);
                     Console.ReadKey();
                     PrintMenu();
                     break;
@@ -69,7 +70,10 @@ namespace Exercise
                     break;
                 case "4":
                     Console.WriteLine("Enter a X Y point to search shapes");
-                    Console.ReadLine();
+                    var point = Console.ReadLine();
+                    PrintShapeList(point);
+                    Console.ReadKey();
+                    PrintMenu();
                     break;
                 case "5":
                     PrintHelp();
@@ -139,5 +143,25 @@ namespace Exercise
                 file.Close();
             }
         }
+
+        static void PrintShapeList(string point)
+        {
+            var storage = methods.ShapesList(point);
+            if (!string.IsNullOrEmpty(storage.ErrorMessage))
+            {
+                Console.WriteLine(storage.ErrorMessage);
+            }
+            else
+            {
+                foreach (var shape in storage.Shapes)
+                {
+                    Console.WriteLine(string.Format("Shape: Id={0} Area={1}", shape.Id, shape.Area.ToString()));
+                }
+            }
+
+        }
+
+
+        
     }
 }

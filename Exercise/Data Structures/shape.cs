@@ -8,10 +8,10 @@ namespace Exercise.Data_Structures
 {
     public class Shape
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
-        public double Xvalue { get; set; }
-        public double Yvalue { get; set; }
-        public double Zvalue { get; set; }
+        public double X1Xvalue { get; set; }
+        public double Y1Value { get; set; }
+        public virtual double Area { get; set; }
     }
 }

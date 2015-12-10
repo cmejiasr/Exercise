@@ -2,7 +2,7 @@
 
 ============================================================================
 			Shapes exercise - Help
-Enter 0 or back to return to the menu
+Press enter to return to the menu
 ============================================================================
 
 How to insert a shape?
@@ -51,6 +51,6 @@ Search Shape with (X, Y) coordinate
 Enter a X, Y value separated by 1 space to get all the shapes that include that point in the (x, y) space
 ie.: 1.7 5.05
 
-Enter 0 or back to return to the menu
+Press enter to return to the menu
 
 

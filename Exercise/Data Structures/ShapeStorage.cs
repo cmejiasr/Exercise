@@ -9,10 +9,7 @@ namespace Exercise.Data_Structures
 {
     public class ShapeStorage
     {
-        public List<Circle> Circles { get; set; }
-        public List<Square> Squares { get; set; }
-        public List<Rectangle> Rectangles { get; set; }
-        public List<Triangle> Triangles { get; set; }
-        public List<Donut> Donuts { get; set; }
+        public List<Shape> Shapes { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

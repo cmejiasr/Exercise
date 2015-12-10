@@ -1,5 +1,5 @@
 ﻿============================================================================
-							Shapes exercise
+		Shapes exercise
 ============================================================================
 
 Available Commands:
@@ -10,5 +10,5 @@ Available Commands:
 5- Help 
 6- Exit
 
-*Select the option number and press enter
+*Select the option number and then press enter
 
