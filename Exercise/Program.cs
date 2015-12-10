@@ -77,6 +77,10 @@ namespace Exercise
                     break;
                 case "5":
                     Console.WriteLine("Enter a shape Id to delete it");
+                    var toDelete = Console.ReadLine();
+                    Console.WriteLine(methods.DeleteShape(toDelete));
+                    Console.ReadKey();
+                    PrintMenu();
                     break;
                 case "6":
                     PrintHelp();

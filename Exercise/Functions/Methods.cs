@@ -12,6 +12,8 @@ namespace Exercise.Functions
 {
     internal class Methods
     {
+        //Hash table can be used instead List
+        //TODO Research how hash table works to accomplish this problem
         List<Circle> _circles;
         List<Square> _squares;
         List<Triangle> _triangles;
@@ -53,10 +55,9 @@ namespace Exercise.Functions
                 }
                 return result;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                
-                return "";
+                return string.Format("{0}{1}",Constants.GenericError,exception.Message);
             }
         }
 
@@ -226,7 +227,7 @@ namespace Exercise.Functions
             catch (Exception ex)
             {
 
-                return string.Format("The shape couldn't be saved. Error message {0}", ex.Message);
+                return string.Format("{0}{1}",Constants.GenericError, ex.Message);
             }
         }
 
@@ -320,7 +321,7 @@ namespace Exercise.Functions
             
         }
 
-        public List<Circle> PointInCircle(double x, double y)
+        internal List<Circle> PointInCircle(double x, double y)
         {
             if (_circles != null)
             {
@@ -332,19 +333,18 @@ namespace Exercise.Functions
             return null;
         }
 
-        public List<Donut> PointInDonuts(double y, double x)
+        internal List<Donut> PointInDonuts(double y, double x)
         {
 
             if (_donuts != null)
             {
                 return (from donut in _donuts
-                        let isvalidaPoint = Math.Sqrt(Math.Pow((donut.X1Xvalue - x), 2) + Math.Pow((donut.Y1Value - y), 2))
-                        where !(isvalidaPoint < donut.InnerRadius || isvalidaPoint > donut.OutterRadius)
+                        let isvalidPoint = Math.Sqrt(Math.Pow((donut.X1Xvalue - x), 2) + Math.Pow((donut.Y1Value - y), 2))
+                        where !(isvalidPoint < donut.InnerRadius || isvalidPoint > donut.OutterRadius)
                         select donut).ToList(); 
             }
             return null;
         }
-
 
         internal List<Square> PointInSquares(double x, double y)
         {
@@ -355,7 +355,7 @@ namespace Exercise.Functions
                 .ToList();
         }
 
-        List<Triangle> PointInTriangles(double x, double y)
+        internal List<Triangle> PointInTriangles(double x, double y)
         {
 
             if (_triangles != null)
@@ -372,6 +372,26 @@ namespace Exercise.Functions
             }
             return null;
         }
+
+        internal List<Rectangle> PointInRectangles(double x, double y)
+        {
+            //TODO Research how to know if a a point XY is inside of a rectangle
+            // This methods is using the same logic as Square
+            // Probably this function does not work as expected
+            // Based on internet reserch, to get the point inside the area, we need at least 3 coordinates
+            return (from rctngl in _rectangles 
+                    let validateSide1 = (rctngl.X1Xvalue <= x) 
+                        && (x <= rctngl.X1Xvalue + rctngl.Side1Value) 
+                        && (rctngl.Y1Value <= y) 
+                        && (y <= rctngl.Y1Value + rctngl.Side1Value) 
+                    let validateSide2 = (rctngl.X1Xvalue <= x) 
+                        && (x <= rctngl.X1Xvalue + rctngl.Side2Value) 
+                        && (rctngl.Y1Value <= y) 
+                        && (y <= rctngl.Y1Value + rctngl.Side2Value) 
+                    where validateSide1 && validateSide2 
+                    select rctngl)
+                        .ToList();
+        } 
 
         #endregion
 
